@@ -17,7 +17,7 @@ db.configure(config.database);
 
 db.query(`CREATE TABLE IF NOT EXISTS users(
     reddit VARCHAR(20),
-    balance INT(15) DEFAULT 2000,
+    balance INT(15) DEFAULT 0,
     signup date
 )`);
 db.query(`CREATE TABLE IF NOT EXISTS items(
@@ -72,8 +72,9 @@ yargs.command("register", "Signs you up for an account.", {}, async argv => {
 	if (await userExists(argv.comment.author.name)) {
 		argv.reply("You already have an account.");
 	} else {
-		await db.query("INSERT INTO users (reddit) VALUES (?)", [
+		await db.query("INSERT INTO users (reddit, balance) VALUES (?, ?)", [
 			argv.comment.author.name,
+			config.currency.startBalance,
 		]);
 		argv.reply(`Congratulations! You now have an account with 2000 ${config.currency.plural} in it.`);
 	}
