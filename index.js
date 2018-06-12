@@ -93,11 +93,11 @@ yargs.command("pay <reciever> <amount>", "Pays a user.", {
 		const userFrom = await getUser(argv.comment.author.name);
 
 		if (userFrom.balance >= argv.amount) {
-            // Take balance from userFrom and give to reciever
-            await db.query("");
-            await db.query("");
+			// Take balance from userFrom and give to reciever
+			await db.query("");
+			await db.query("");
 
-            argv.reply(`You have successfully transferred ${argv.amount} ${config.currency.plural} to u/${argv.reciever}.`);
+			argv.reply(`You have successfully transferred ${argv.amount} ${config.currency.plural} to u/${argv.reciever}.`);
 		} else {
 			argv.reply("You do not have enough money to make the transaction.");
 		}
