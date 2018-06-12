@@ -1,0 +1,19 @@
+{
+    "auth": {
+        "username": "",
+        "password": "",
+        "clientID": "",
+        "clientSecret": ""
+    },
+    "database": {
+        "host": "",
+        "user": "",
+        "password": "",
+        "database": ""
+    },
+    "currency": {
+        "singular": "",
+        "plural": "",
+        "symbol": ""
+    }
+}

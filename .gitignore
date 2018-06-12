@@ -59,3 +59,6 @@ typings/
 
 # next.js build output
 .next
+
+# Config with private parameters (e.g. API secrets, database passwords)
+config.json
