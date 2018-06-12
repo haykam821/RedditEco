@@ -1,0 +1,43 @@
+[
+    {
+        "name": "Traditional Pitchfork",
+        "symbol": "---E",
+        "lore": "A fork from the depths of /r/pitchforkemporium.",
+        "home": "pitchforkemporium",
+        "cost": 150,
+        "degrades": 1,
+        "use": ["fork", 1]
+    },
+    {
+        "name": "Damaged Pitchfork",
+        "symbol": "---F",
+        "lore": "A fork missing a single prong.",
+        "home": "pitchforkemporium",
+        "cost": 100,
+        "degrades": 2,
+        "use": ["fork", 0.33]
+    },
+    {
+        "name": "Broken Pitchfork",
+        "symbol": "---L",
+        "lore": "A fork that's missing two prongs due to damage from prior riots.",
+        "home": "pitchforkemporium",
+        "cost": 50,
+        "degrades": 3,
+        "use": ["fork", 0.66]
+    },
+    {
+        "name": "Stick",
+        "symbol": "---",
+        "lore": "Poke your friend in the eye with it.",
+        "use": ["poke", 0.50]
+    }
+    {
+        "name": "Defective Pitchfork",
+        "symbol": "---e",
+        "lore": "A discounted fork due to its defect.",
+        "home": "pitchforkemporium",
+        "cost": 100,
+        "use": ["fork", 0]
+    }
+]
