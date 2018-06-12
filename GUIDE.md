@@ -20,6 +20,14 @@ This will create an account for you if you do not already have one, with a defau
 
 ## Payment
 
-You can pay a user by responding to their comment with the `pay` command:
+You can pay a user with the `pay` command:
 
-> u/RedditEco pay 5000
+> u/RedditEco pay haykam821 5000
+
+## Checking an Account
+
+You can check someone's account (yours or another person's) with the `check` command:
+
+> u/RedditEco check haykam821
+
+This will show their balance and items.
