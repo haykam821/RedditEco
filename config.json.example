@@ -6,15 +6,15 @@
         "clientSecret": ""
     },
     "database": {
-        "host": "",
-        "user": "",
-        "password": "",
-        "database": ""
+        "host": "127.0.0.1",
+        "user": "root",
+        "password": "hunter2",
+        "database": "redditeco"
     },
     "currency": {
-        "singular": "",
-        "plural": "",
-        "symbol": ""
+        "singular": "dollar",
+        "plural": "dollars",
+        "symbol": "$",
         "startBalance": 1000
     }
 }
