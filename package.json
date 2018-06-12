@@ -24,6 +24,9 @@
   },
   "homepage": "https://github.com/haykam821/RedditEco#readme",
   "dependencies": {
+    "markdown-table": "^1.1.2",
+    "mysql": "^2.15.0",
+    "mysql-promise": "^4.1.0",
     "snoostream": "^1.0.1",
     "snoowrap": "^1.15.2",
     "yargs": "^11.0.0"
