@@ -1,0 +1,35 @@
+{
+  "name": "redditeco-bot",
+  "version": "1.0.0",
+  "description": "An economy for Reddit.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/haykam821/RedditEco.git"
+  },
+  "keywords": [
+    "reddit",
+    "bot",
+    "eco",
+    "economy",
+    "money"
+  ],
+  "author": "haykam821",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/haykam821/RedditEco/issues"
+  },
+  "homepage": "https://github.com/haykam821/RedditEco#readme",
+  "dependencies": {
+    "snoostream": "^1.0.1",
+    "snoowrap": "^1.15.2",
+    "yargs": "^11.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-haykam": "^1.0.1"
+  }
+}

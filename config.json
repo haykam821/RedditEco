@@ -1,0 +1,13 @@
+{
+    "auth": {
+        "username": "RedditEco",
+        "password": "",
+        "clientID": "",
+        "clientSecret": ""
+    },
+    "currency": {
+        "singular": "nirvan",
+        "plural": "nirvanes",
+        "symbol": "¤"
+    }
+}
