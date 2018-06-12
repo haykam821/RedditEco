@@ -14,12 +14,20 @@ The currency of u/RedditEco is called the nirvan (plural: nirvanes), as a play o
 
 By making an account, you agree to your Reddit data being stored in our databases indefinitely. Account deletion is not possible at the time of writing.
 
->u/RedditEco register
+> u/RedditEco register
 
 This will create an account for you if you do not already have one, with a default of 2000 nirvanes.
 
 ## Payment
 
-You can pay a user by responding to their comment with the `pay` command:
+You can pay a user with the `pay` command:
 
-\> u/RedditEco pay 5000
+> u/RedditEco pay haykam821 5000
+
+## Checking an Account
+
+You can check someone's account (yours or another person's) with the `check` command:
+
+> u/RedditEco check haykam821
+
+This will show their balance and items.
