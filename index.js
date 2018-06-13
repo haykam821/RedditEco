@@ -107,23 +107,30 @@ yargs.command("give <reciever> <amount> [comment]", "Gives a user money.", {
 		type: "string",
 	},
 }, async argv => {
-	const response = [];
+	const sender = await getUser(argv.comment.author.name);
 
-	if (!await userExists(argv.reciever)) {
-		await db.query("INSERT INTO users (reddit, balance) VALUES (?, ?)", [
-			argv.reciever,
-			config.currency.startBalance,
-		]);
-		response.push("That person did not have an account, so it was automatically created for them.");
+	// only if admin)
+	if (sender.role > 1) {
+		const response = [];
+
+		if (!await userExists(argv.reciever)) {
+			await db.query("INSERT INTO users (reddit, balance) VALUES (?, ?)", [
+				argv.reciever,
+				config.currency.startBalance,
+			]);
+			response.push("That person did not have an account, so it was automatically created for them.");
+		}
+		await changeBalance(argv.reciever, argv.amount);
+		response.push(`You have successfully given ${argv.amount} ${config.currency.plural} to ${argv.reciever}.`);
+
+		if (argv.comment) {
+			response.push(`Reason for transfer:\n\n> ${escaper(argv.comment)}`);
+		}
+
+		argv.reply(response.join(" "));
+	} else {
+		argv.reply("You are not an admin!");
 	}
-	await changeBalance(argv.reciever, argv.amount);
-	response.push(`You have successfully given ${argv.amount} ${config.currency.plural} to ${argv.reciever}.`);
-
-	if (argv.comment) {
-		response.push(`Reason for transfer:\n\n> ${escaper(argv.comment)}`);
-	}
-
-	argv.reply(response.join(" "));
 });
 yargs.command("pay <reciever> <amount> [comment]", "Pays a user.", {
 	reciever: {
