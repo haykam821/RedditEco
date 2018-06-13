@@ -82,7 +82,7 @@ yargs.command("register", "Signs you up for an account.", {}, async argv => {
 			argv.comment.author.name,
 			config.currency.startBalance,
 		]);
-		argv.reply(`Congratulations! You now have an account with 2000 ${config.currency.plural} in it.`);
+		argv.reply(`Congratulations! You now have an account with ${config.currency.startBalance} ${config.currency.plural} in it.`);
 	}
 });
 yargs.command("pay <reciever> <amount>", "Pays a user.", {
