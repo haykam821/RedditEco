@@ -8,7 +8,7 @@ All commands you want to execute must be prefixed by the bot's mention, i.e. u/R
 
 ## Currency
 
-The currency of u/RedditEco is called the nirvan (plural: nirvanes), as a play on karma. The symbol, which is shown in the bot's responses, is `¤`. You start with 2000 nirvanes by registering an account.
+The currency of u/RedditEco are gems. The symbol, which is shown in the bot's responses, is `💎`. You start with 2000 gems by registering an account.
 
 ## Making an Account
 
@@ -16,7 +16,7 @@ By making an account, you agree to your Reddit data being stored in our database
 
 > u/RedditEco register
 
-This will create an account for you if you do not already have one, with a default of 2000 nirvanes.
+This will create an account for you if you do not already have one, with a default of 2000 gems.
 
 ## Payment
 
