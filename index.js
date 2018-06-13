@@ -1,3 +1,10 @@
+/*
+	Roles:
+		0. banned (NYI)
+		1. user
+		2. admin
+*/
+
 const yargs = require("yargs");
 
 const config = require("./config.json");
@@ -7,6 +14,7 @@ const SnooStream = require("snoostream");
 const Snoowrap = require("snoowrap");
 
 const mdTable = require("markdown-table");
+const escaper = require("markdown-escape");
 
 const version = require("./package.json").version;
 
@@ -18,7 +26,7 @@ db.configure(config.database);
 db.query(`CREATE TABLE IF NOT EXISTS users(
     reddit VARCHAR(20),
     balance INT(15) DEFAULT 0,
-    signup date
+    role INT(1) DEFAULT 1
 )`);
 db.query(`CREATE TABLE IF NOT EXISTS items(
     id INT(11) NOT NULL AUTO_INCREMENT,
@@ -85,7 +93,39 @@ yargs.command("register", "Signs you up for an account.", {}, async argv => {
 		argv.reply(`Congratulations! You now have an account with ${config.currency.startBalance} ${config.currency.plural} in it.`);
 	}
 });
-yargs.command("pay <reciever> <amount>", "Pays a user.", {
+yargs.command("give <reciever> <amount> [comment]", "Gives a user money.", {
+	reciever: {
+		description: "The reciever of the money you would like to give.",
+		type: "string",
+	},
+	amount: {
+		description: "The amount of money to give.",
+		type: "number",
+	},
+	comment: {
+		description: "A comment for the reciever, explaining why the money was given to them.",
+		type: "string",
+	},
+}, async argv => {
+	const response = [];
+
+	if (!await userExists(argv.reciever)) {
+		await db.query("INSERT INTO users (reddit, balance) VALUES (?, ?)", [
+			argv.reciever,
+			config.currency.startBalance,
+		]);
+		response.push("That person did not have an account, so it was automatically created for them.");
+	}
+	await changeBalance(argv.reciever, argv.amount);
+	response.push(`You have successfully given ${argv.amount} ${config.currency.plural} to ${argv.reciever}.`);
+
+	if (argv.comment) {
+		response.push(`Reason for transfer:\n\n> ${escaper(argv.comment)}`);
+	}
+
+	argv.reply(response.join(" "));
+});
+yargs.command("pay <reciever> <amount> [comment]", "Pays a user.", {
 	reciever: {
 		description: "The reciever of the money you would like to send in a transaction.",
 		type: "string",
@@ -94,7 +134,13 @@ yargs.command("pay <reciever> <amount>", "Pays a user.", {
 		description: "The amount of money to send.",
 		type: "number",
 	},
+	comment: {
+		description: "A comment for the reciever, explaining why they got paid the money.",
+		type: "string",
+	},
 }, async argv => {
+	const response = [];
+
 	if (await userExists(argv.reciever) && await userExists(argv.comment.author.name)) {
 		const userFrom = await getUser(argv.comment.author.name);
 
@@ -103,13 +149,19 @@ yargs.command("pay <reciever> <amount>", "Pays a user.", {
 			await changeBalance(userFrom, argv.amount * -1);
 			await changeBalance(argv.reciever, argv.amount);
 
-			argv.reply(`You have successfully transferred ${argv.amount} ${config.currency.plural} to u/${argv.reciever}.`);
+			response.push(`You have successfully transferred ${argv.amount} ${config.currency.plural} to u/${argv.reciever}.`);
+
+			if (argv.comment) {
+				response.push(`Reason for transfer:\n\n> ${escaper(argv.comment)}`);
+			}
 		} else {
-			argv.reply("You do not have enough money to make the transaction.");
+			response.push("You do not have enough money to make the transaction.");
 		}
 	} else {
-		argv.reply(`Both users involved in a transaction need an account, which is created with the following command:\n\n> u/${argv.bot.username} register`);
+		response.push(`Both users involved in a transaction need an account, which is created with the following command:\n\n> u/${argv.bot.username} register`);
 	}
+
+	argv.reply(response.join(" "));
 });
 yargs.command("check <username>", "Checks a user's account", builder => {
 	builder.positional("username", {
