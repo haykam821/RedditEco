@@ -64,6 +64,12 @@ async function getOwnedItems(name) {
 		return item;
 	});
 }
+async function changeBalance(name, by) {
+	return await db.query("UPDATE users SET balance = balance + ? WHERE reddit = ?", [
+		name,
+		by,
+	]);
+}
 
 yargs.command("docs", "Replies with a link to the docs.", {}, argv => {
 	argv.reply("A user guide is available on [GitHub](https://github.com/haykam821/RedditEco/blob/master/GUIDE.md) and you can ask questions in r/RedditEco.");
@@ -94,8 +100,8 @@ yargs.command("pay <reciever> <amount>", "Pays a user.", {
 
 		if (userFrom.balance >= argv.amount) {
 			// Take balance from userFrom and give to reciever
-			await db.query("");
-			await db.query("");
+			await changeBalance(userFrom, argv.amount * -1);
+			await changeBalance(argv.reciever, argv.amount);
 
 			argv.reply(`You have successfully transferred ${argv.amount} ${config.currency.plural} to u/${argv.reciever}.`);
 		} else {
