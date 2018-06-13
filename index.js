@@ -152,12 +152,12 @@ function isCommand(msg) {
 }
 
 const snooStream = SnooStream(bot);
-const stream = snooStream.commentStream("RedditEcoTest");
+const stream = snooStream.commentStream("all");
 stream.on("post", post => {
 	if (!isCommand(post)) return;
 
 	yargs.fail(() => {
-		post.reply("Something went wrong! Are you sure you're using the correct syntax?" + epilogue);
+		post.reply("Something went wrong! Are you sure you're using the correct syntax as defined in the [User Guide](https://github.com/haykam821/RedditEco/blob/master/GUIDE.md)?" + epilogue);
 	});
 
 	yargs.parse(post.body.split(" ").slice(1), {
