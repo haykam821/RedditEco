@@ -152,7 +152,7 @@ function isCommand(msg) {
 }
 
 const snooStream = SnooStream(bot);
-const stream = snooStream.commentStream("all");
+const stream = snooStream.commentStream(config.subreddits.join("+"));
 stream.on("post", post => {
 	if (!isCommand(post)) return;
 

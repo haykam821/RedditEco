@@ -16,5 +16,9 @@
         "plural": "dollars",
         "symbol": "$",
         "startBalance": 1000
-    }
+    },
+    "subreddits": [
+        "RedditEco",
+        "RedditEcoTest"
+    ]
 }
