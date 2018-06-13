@@ -74,8 +74,8 @@ async function getOwnedItems(name) {
 }
 async function changeBalance(name, by) {
 	return await db.query("UPDATE users SET balance = balance + ? WHERE reddit = ?", [
-		name,
 		by,
+		name,
 	]);
 }
 
@@ -93,19 +93,19 @@ yargs.command("register", "Signs you up for an account.", {}, async argv => {
 		argv.reply(`Congratulations! You now have an account with ${config.currency.startBalance} ${config.currency.plural} in it.`);
 	}
 });
-yargs.command("give <reciever> <amount> [comment]", "Gives a user money.", {
-	reciever: {
+yargs.command("give <reciever> <amount> [message]", "Gives a user money.", builder => {
+	builder.positional("reciever", {
 		description: "The reciever of the money you would like to give.",
 		type: "string",
-	},
-	amount: {
+	});
+	builder.positional("amount", {
 		description: "The amount of money to give.",
 		type: "number",
-	},
-	comment: {
+	});
+	builder.positional("message", {
 		description: "A comment for the reciever, explaining why the money was given to them.",
 		type: "string",
-	},
+	});
 }, async argv => {
 	const sender = await getUser(argv.comment.author.name);
 
@@ -123,8 +123,8 @@ yargs.command("give <reciever> <amount> [comment]", "Gives a user money.", {
 		await changeBalance(argv.reciever, argv.amount);
 		response.push(`You have successfully given ${argv.amount} ${config.currency.plural} to ${argv.reciever}.`);
 
-		if (argv.comment) {
-			response.push(`Reason for transfer:\n\n> ${escaper(argv.comment)}`);
+		if (argv.message) {
+			response.push(`Reason for giving:\n\n> ${escaper(argv.message)}`);
 		}
 
 		argv.reply(response.join(" "));
@@ -132,19 +132,19 @@ yargs.command("give <reciever> <amount> [comment]", "Gives a user money.", {
 		argv.reply("You are not an admin!");
 	}
 });
-yargs.command("pay <reciever> <amount> [comment]", "Pays a user.", {
-	reciever: {
+yargs.command("pay <reciever> <amount> [message]", "Pays a user.", builder => {
+	builder.positional("reciever", {
 		description: "The reciever of the money you would like to send in a transaction.",
 		type: "string",
-	},
-	amount: {
+	});
+	builder.positional("amount", {
 		description: "The amount of money to send.",
 		type: "number",
-	},
-	comment: {
+	});
+	builder.positional("message", {
 		description: "A comment for the reciever, explaining why they got paid the money.",
 		type: "string",
-	},
+	});
 }, async argv => {
 	const response = [];
 
@@ -158,8 +158,8 @@ yargs.command("pay <reciever> <amount> [comment]", "Pays a user.", {
 
 			response.push(`You have successfully transferred ${argv.amount} ${config.currency.plural} to u/${argv.reciever}.`);
 
-			if (argv.comment) {
-				response.push(`Reason for transfer:\n\n> ${escaper(argv.comment)}`);
+			if (argv.message) {
+				response.push(`Reason for transfer:\n\n> ${escaper(argv.message)}`);
 			}
 		} else {
 			response.push("You do not have enough money to make the transaction.");
